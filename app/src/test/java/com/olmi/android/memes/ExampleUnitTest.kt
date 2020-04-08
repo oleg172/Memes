@@ -1,4 +1,4 @@
-package com.olmi.android.memms
+package com.olmi.android.memes
 
 import org.junit.Test
 

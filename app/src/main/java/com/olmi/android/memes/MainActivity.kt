@@ -1,4 +1,4 @@
-package com.olmi.android.memms
+package com.olmi.android.memes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
