@@ -2,10 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
     <item>
-        <shape android:shape="rectangle">
-            <size
-                android:width="@android:dimen/thumbnail_width"
-                android:height="@android:dimen/thumbnail_height" />
+        <shape>
             <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
