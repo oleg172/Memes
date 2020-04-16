@@ -13,6 +13,15 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Widget.Design.Snackbar" parent="android:Widget">
+        <item name="android:background">@color/colorError</item>
+    </style>
+
     <style name="LoginBoxesTextFields">
         <item name="android:layout_marginStart">@dimen/field_margin_default</item>
         <item name="android:layout_marginEnd">@dimen/field_margin_default</item>

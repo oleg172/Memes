@@ -6,5 +6,12 @@
     <string name="password_field_helper">Пароль должен содержать 6 символов</string>
     <string name="login_button">Войти</string>
     <string name="error_field_empty">Поле не может быть пустым</string>
-    <string name="login_error">Вы ввели не верные данные. Попробуйте еще раз</string>
+    <string name="login_error">Вы ввели не верные данные.\nПопробуйте еще раз</string>
+    <string name="no_internet_connection_error">
+        Похоже, ваше интернет-соединение отключено.\nВключите его и попробуйте снова
+    </string>
+    <string name="server_unreachable_error">
+        Сервер временно не доступен.\nПопробуйте подключиться заново
+    </string>
+    <string name="http_call_error">Произошла ошибка на стороне сервеа.\nМы уже разбираемся</string>
 </resources>

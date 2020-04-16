@@ -8,7 +8,14 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.olmi.android.memes.R
+import com.olmi.android.memes.data.*
+import com.olmi.android.memes.data.exceptions.HttpCallFailureException
+import com.olmi.android.memes.data.exceptions.NoNetworkException
+import com.olmi.android.memes.data.exceptions.ServerUnreachableException
+import com.olmi.android.memes.data.models.User
+import com.olmi.android.memes.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginView {
@@ -81,6 +88,40 @@ class LoginActivity : AppCompatActivity(), LoginView {
             login_progress_bar.visibility = View.GONE
         }
     }
+
+    override fun displayError(error: Throwable) {
+        when (error) {
+            is NoNetworkException -> Snackbar.make(
+                findViewById(R.id.login_view),
+                resources.getString(R.string.no_internet_connection_error),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            is ServerUnreachableException -> Snackbar.make(
+                findViewById(R.id.login_view),
+                resources.getString(R.string.server_unreachable_error),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            is HttpCallFailureException -> Snackbar.make(
+                findViewById(R.id.login_view),
+                resources.getString(R.string.http_call_error),
+                Snackbar.LENGTH_SHORT
+            ).show()
+            else -> Snackbar.make(
+                findViewById(R.id.login_view),
+                resources.getString(R.string.login_error),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    override fun saveUserInformation(user: User) {
+        SharedPreferencesUtils.insertData(this, USER_TOKEN, user.token)
+        SharedPreferencesUtils.insertData(this, USER_ID, user.id)
+        SharedPreferencesUtils.insertData(this, USER_NAME, user.name)
+        SharedPreferencesUtils.insertData(this, USER_FIRST_NAME, user.firstName)
+        SharedPreferencesUtils.insertData(this, USER_LAST_NAME, user.lastName)
+    }
+
 
     private fun initListeners() {
         login_field_value.addTextChangedListener(onLoginChangeListener())
