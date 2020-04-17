@@ -1,10 +1,8 @@
 package com.olmi.android.memes.ui.login
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +13,7 @@ import com.olmi.android.memes.data.exceptions.HttpCallFailureException
 import com.olmi.android.memes.data.exceptions.NoNetworkException
 import com.olmi.android.memes.data.exceptions.ServerUnreachableException
 import com.olmi.android.memes.data.models.User
+import com.olmi.android.memes.ui.helper.TextChangedHelper
 import com.olmi.android.memes.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -38,7 +37,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
         presenter.onViewCreated(this)
 
         initFields()
-        initListeners()
+        initFieldsListeners()
     }
 
     override fun onDestroy() {
@@ -81,36 +80,20 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun buttonShowProgressBar(show: Boolean) {
         if (show) {
-            login_button.text = ""
+            login_btn.text = ""
             login_progress_bar.visibility = View.VISIBLE
         } else {
-            login_button.text = resources.getString(R.string.login_button)
+            login_btn.text = resources.getString(R.string.login_button)
             login_progress_bar.visibility = View.GONE
         }
     }
 
     override fun displayError(error: Throwable) {
         when (error) {
-            is NoNetworkException -> Snackbar.make(
-                findViewById(R.id.login_view),
-                resources.getString(R.string.no_internet_connection_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            is ServerUnreachableException -> Snackbar.make(
-                findViewById(R.id.login_view),
-                resources.getString(R.string.server_unreachable_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            is HttpCallFailureException -> Snackbar.make(
-                findViewById(R.id.login_view),
-                resources.getString(R.string.http_call_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            else -> Snackbar.make(
-                findViewById(R.id.login_view),
-                resources.getString(R.string.login_error),
-                Snackbar.LENGTH_SHORT
-            ).show()
+            is NoNetworkException -> showSnackbar(resources.getString(R.string.no_internet_connection_error))
+            is ServerUnreachableException -> showSnackbar(resources.getString(R.string.server_unreachable_error))
+            is HttpCallFailureException -> showSnackbar(resources.getString(R.string.http_call_error))
+            else -> showSnackbar(resources.getString(R.string.login_error))
         }
     }
 
@@ -123,55 +106,40 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
 
-    private fun initListeners() {
-        login_field_value.addTextChangedListener(onLoginChangeListener())
-        password_field_value.addTextChangedListener(onPasswordChangeListener())
+    private fun initFieldsListeners() {
+        login_field_value.addTextChangedListener(TextChangedHelper {
+            onLoginFieldTextChanged()
+        })
+        password_field_value.addTextChangedListener(TextChangedHelper { text: CharSequence? ->
+            onPasswordFieldTextChanged(text)
+        })
         password_field.endIconImageButton.setOnClickListener(onIconClickListener())
-        login_button.setOnClickListener(onButtonClickListener())
+        login_btn.setOnClickListener(onButtonClickListener())
     }
 
     private fun initFields() {
         showPassword(showPass)
     }
 
-    private fun onLoginChangeListener() = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            showLoginFieldEmptyError(false)
-        }
+    private fun onLoginFieldTextChanged() {
+        showLoginFieldEmptyError(false)
     }
 
 
-    private fun onPasswordChangeListener() = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val text = s ?: return
-            showPasswordFieldEmptyError(false)
-            presenter.checkPasswordField(
-                text.toString(),
-                resources.getInteger(R.integer.password_length)
-            )
-        }
+    private fun onPasswordFieldTextChanged(s: CharSequence?) {
+        val text = s ?: return
+        showPasswordFieldEmptyError(false)
+        presenter.checkPasswordField(
+            text.toString(),
+            resources.getInteger(R.integer.password_length)
+        )
     }
 
-    private fun onIconClickListener() = object : View.OnClickListener {
-
-        override fun onClick(view: View?) {
-            showPass = !showPass
-            val position = password_field_value.selectionEnd
-            showPassword(showPass)
-            password_field_value.setSelection(position)
-        }
+    private fun onIconClickListener() = View.OnClickListener {
+        showPass = !showPass
+        val position = password_field_value.selectionEnd
+        showPassword(showPass)
+        password_field_value.setSelection(position)
     }
 
     private fun onButtonClickListener() =
@@ -187,5 +155,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
             password_field_value.inputType = InputType.TYPE_CLASS_TEXT or
                     InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
+    }
+
+    private fun showSnackbar(msg: String) {
+        Snackbar.make(
+            findViewById(R.id.login_view),
+            msg,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
