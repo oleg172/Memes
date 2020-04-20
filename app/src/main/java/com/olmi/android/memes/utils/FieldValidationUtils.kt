@@ -2,6 +2,9 @@ package com.olmi.android.memes.utils
 
 import android.text.TextUtils
 
+/*
+* Utility class for validation fields
+* */
 object FieldValidationUtils {
 
     fun isFieldEmpty(fieldValue: String?): Boolean {

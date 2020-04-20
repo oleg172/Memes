@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 
+/*
+* Utility class for work with sharedPreferences
+* */
 object SharedPreferencesUtils {
 
     private const val PREF_NAME = "MEMES_PREFS"

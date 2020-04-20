@@ -5,6 +5,7 @@ import android.text.InputType
 import android.text.TextUtils
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.olmi.android.memes.R
@@ -17,17 +18,14 @@ import com.olmi.android.memes.ui.helper.TextChangedHelper
 import com.olmi.android.memes.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity(), LoginView {
+const val SHOW_PASS = "showPass"
 
-    companion object {
-        const val SHOW_PASS = "showPass"
-    }
+class LoginActivity : AppCompatActivity(), LoginView {
 
     private lateinit var presenter: LoginPresenter
     private var showPass: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         if (savedInstanceState != null) {
@@ -81,10 +79,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
     override fun buttonShowProgressBar(show: Boolean) {
         if (show) {
             login_btn.text = ""
-            login_progress_bar.visibility = View.VISIBLE
+            login_progress_bar.isVisible = true
         } else {
             login_btn.text = resources.getString(R.string.login_button)
-            login_progress_bar.visibility = View.GONE
+            login_progress_bar.isVisible = false
         }
     }
 
@@ -114,7 +112,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
             onPasswordFieldTextChanged(text)
         })
         password_field.endIconImageButton.setOnClickListener(onIconClickListener())
-        login_btn.setOnClickListener(onButtonClickListener())
+        login_btn.setOnClickListener {
+            presenter.login(resources.getInteger(R.integer.password_length))
+        }
     }
 
     private fun initFields() {
@@ -141,9 +141,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         showPassword(showPass)
         password_field_value.setSelection(position)
     }
-
-    private fun onButtonClickListener() =
-        View.OnClickListener { presenter.login(resources.getInteger(R.integer.password_length)) }
 
     private fun showPassword(showPass: Boolean) {
         if (showPass) {
