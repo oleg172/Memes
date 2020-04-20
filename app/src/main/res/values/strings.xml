@@ -14,4 +14,10 @@
         Сервер временно не доступен.\nПопробуйте подключиться заново
     </string>
     <string name="http_call_error">Произошла ошибка на стороне сервеа.\nМы уже разбираемся</string>
+    <string name="top_app_bar_title">Популярные мемы</string>
+    <string name="search">Поиск</string>
+    <string name="memes_view_btn_title">Мемы</string>
+    <string name="memes_add_btn_title">Добавить мем</string>
+    <string name="user_profile_btn_title">Профиль пользователя</string>
+
 </resources>
