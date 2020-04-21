@@ -9,11 +9,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.olmi.android.memes.R
-import com.olmi.android.memes.data.*
 import com.olmi.android.memes.data.exceptions.HttpCallFailureException
 import com.olmi.android.memes.data.exceptions.NoNetworkException
 import com.olmi.android.memes.data.exceptions.ServerUnreachableException
-import com.olmi.android.memes.data.models.User
 import com.olmi.android.memes.ui.helper.TextChangedHelper
 import com.olmi.android.memes.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
@@ -32,7 +30,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
             showPass = savedInstanceState.getBoolean(SHOW_PASS, false)
         }
         presenter = ViewModelProvider(this).get(LoginPresenter::class.java)
-        presenter.onViewCreated(this)
+        presenter.onViewCreated(this, SharedPreferencesUtils.getPrefs(this))
 
         initFields()
         initFieldsListeners()
@@ -94,15 +92,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
             else -> showSnackbar(resources.getString(R.string.login_error))
         }
     }
-
-    override fun saveUserInformation(user: User) {
-        SharedPreferencesUtils.insertData(this, USER_TOKEN, user.token)
-        SharedPreferencesUtils.insertData(this, USER_ID, user.id)
-        SharedPreferencesUtils.insertData(this, USER_NAME, user.name)
-        SharedPreferencesUtils.insertData(this, USER_FIRST_NAME, user.firstName)
-        SharedPreferencesUtils.insertData(this, USER_LAST_NAME, user.lastName)
-    }
-
 
     private fun initFieldsListeners() {
         login_field_value.addTextChangedListener(TextChangedHelper {
