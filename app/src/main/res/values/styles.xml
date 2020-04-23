@@ -1,11 +1,38 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Widget.Design.Snackbar" parent="android:Widget">
+        <item name="android:background">@color/colorError</item>
+    </style>
+
+    <style name="LoginBoxesTextFields">
+        <item name="android:layout_marginStart">@dimen/field_margin_default</item>
+        <item name="android:layout_marginEnd">@dimen/field_margin_default</item>
+        <item name="secondaryColor">@color/colorLightGrey</item>
+        <item name="panelBackgroundColor">@color/panelBackgroundColor</item>
+        <item name="primaryColor">@color/colorAccent</item>
+        <item name="errorColor">@color/colorError</item>
+    </style>
+
+    <style name="LoginEditTextFields">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 </resources>
