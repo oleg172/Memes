@@ -1,12 +1,10 @@
 package com.olmi.android.memes.ui.login
 
-import com.olmi.android.memes.data.models.User
-
 interface LoginView {
 
-    fun getLoginInput(): String?
+    fun getLoginInput(): String
 
-    fun getPasswordInput(): String?
+    fun getPasswordInput(): String
 
     fun showLoginFieldEmptyError(show: Boolean)
 
@@ -18,5 +16,4 @@ interface LoginView {
 
     fun displayError(error: Throwable)
 
-    fun saveUserInformation(user: User)
 }

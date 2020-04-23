@@ -1,10 +1,14 @@
 package com.olmi.android.memes.ui.login
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.olmi.android.memes.data.*
 import com.olmi.android.memes.data.interactor.MemosInteractorProvider
+import com.olmi.android.memes.data.models.User
 import com.olmi.android.memes.data.request.UserRequest
 import com.olmi.android.memes.utils.FieldValidationUtils
+import com.olmi.android.memes.utils.SharedPreferencesUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -13,9 +17,11 @@ class LoginPresenter : ViewModel() {
     private val TAG = this.javaClass.name
     private val memosInteractor = MemosInteractorProvider.memosInteractor
     private var view: LoginView? = null
+    private lateinit var sharedPreferences: SharedPreferences
 
-    fun onViewCreated(view: LoginView) {
+    fun onViewCreated(view: LoginView, sharedPreferences: SharedPreferences) {
         this.view = view
+        this.sharedPreferences = sharedPreferences
     }
 
     fun onViewDestroyed() {
@@ -46,7 +52,7 @@ class LoginPresenter : ViewModel() {
                 {
                     Log.i(TAG, "Successfully login. User ifromation: ${it.convert()}")
                     view?.buttonShowProgressBar(false)
-                    view?.saveUserInformation(it.convert())
+                    saveUserInformation(it.convert())
                 },
                 { error ->
                     Log.e(TAG, "Can't login because of error: ${error.message}")
@@ -73,5 +79,13 @@ class LoginPresenter : ViewModel() {
             isCredentialsValid = false
         }
         return isCredentialsValid
+    }
+
+    private fun saveUserInformation(user: User) {
+        SharedPreferencesUtils.insertData(sharedPreferences, USER_TOKEN, user.token)
+        SharedPreferencesUtils.insertData(sharedPreferences, USER_ID, user.id)
+        SharedPreferencesUtils.insertData(sharedPreferences, USER_NAME, user.name)
+        SharedPreferencesUtils.insertData(sharedPreferences, USER_FIRST_NAME, user.firstName)
+        SharedPreferencesUtils.insertData(sharedPreferences, USER_LAST_NAME, user.lastName)
     }
 }
