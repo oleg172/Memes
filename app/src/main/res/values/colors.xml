@@ -3,6 +3,7 @@
     <color name="colorPrimary">#23213F</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="panelBackgroundColor">#312F51</color>
+    <color name="colorNavView">#12102B</color>
     <color name="colorAccent">#1EF0D7</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGrey">#CCCCCC</color>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/panelBackgroundColor"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/detail_mem_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/panelBackgroundColor">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.NoActionBar"
+            app:menu="@menu/mem_detail_app_bar"
+            app:titleTextColor="@color/colorWhite" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detail_mem_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_default"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_24" />
+
+            <ImageView
+                android:id="@+id/detail_mem_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/padding_default">
+
+                <TextView
+                    android:id="@+id/detail_mem_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_default"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_12" />
+
+                <ImageView
+                    android:id="@+id/detail_mem_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:src="@drawable/like_button_style" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/detail_mem_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_default"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
