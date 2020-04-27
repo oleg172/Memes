@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeMemes"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.memes.list.MemesListFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/memes_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello memes list fragment" />
+        tools:context=".ui.memes.list.MemesListFragment">
+        <!-- Empty view is only visible when the list has no items. -->
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_14" />
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/memes_list_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/login_button_margin_bottom"
+            android:indeterminateTint="@color/colorAccent"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/memes_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -13,6 +13,11 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">
         <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -36,9 +41,19 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="MemNameItemStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingStart">@dimen/padding_default</item>
+        <item name="android:paddingTop">@dimen/padding_8</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="MemButtonsItemStyle">
+        <item name="android:paddingStart">@dimen/padding_default</item>
+        <item name="android:paddingTop">@dimen/padding_default</item>
+        <item name="android:paddingBottom">@dimen/padding_default</item>
     </style>
 
 </resources>

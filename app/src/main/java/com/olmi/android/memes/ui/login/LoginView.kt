@@ -16,4 +16,6 @@ interface LoginView {
 
     fun displayError(error: Throwable)
 
+    fun startMainActivity()
+
 }

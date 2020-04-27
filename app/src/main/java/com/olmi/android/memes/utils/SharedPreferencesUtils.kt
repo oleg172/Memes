@@ -3,6 +3,7 @@ package com.olmi.android.memes.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.olmi.android.memes.data.DEFAULT_STRING_VALUE
 
 /*
 * Utility class for work with sharedPreferences
@@ -10,7 +11,6 @@ import android.util.Log
 object SharedPreferencesUtils {
 
     private const val PREF_NAME = "MEMES_PREFS"
-    private const val DEFAULT_STRING_VALUE = "no_data_found"
 
     fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

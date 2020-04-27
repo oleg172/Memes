@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class LoginPresenter : ViewModel() {
 
     private val TAG = this.javaClass.name
-    private val memosInteractor = MemosInteractorProvider.memosInteractor
+    private val memosInteractor = MemosInteractorProvider.MEMES_INTERACTOR
     private var view: LoginView? = null
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -53,6 +53,7 @@ class LoginPresenter : ViewModel() {
                     Log.i(TAG, "Successfully login. User ifromation: ${it.convert()}")
                     view?.buttonShowProgressBar(false)
                     saveUserInformation(it.convert())
+                    view?.startMainActivity()
                 },
                 { error ->
                     Log.e(TAG, "Can't login because of error: ${error.message}")

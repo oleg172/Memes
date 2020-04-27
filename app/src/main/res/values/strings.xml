@@ -19,5 +19,5 @@
     <string name="memes_view_btn_title">Мемы</string>
     <string name="memes_add_btn_title">Добавить мем</string>
     <string name="user_profile_btn_title">Профиль пользователя</string>
-
+    <string name="memes_user_friendly_error">Не удалось загрузить ленту\nОбновите экран или попробуйте позже.</string>
 </resources>

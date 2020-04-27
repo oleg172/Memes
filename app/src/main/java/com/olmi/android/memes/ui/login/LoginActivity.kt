@@ -1,5 +1,6 @@
 package com.olmi.android.memes.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
@@ -13,6 +14,7 @@ import com.olmi.android.memes.data.exceptions.HttpCallFailureException
 import com.olmi.android.memes.data.exceptions.NoNetworkException
 import com.olmi.android.memes.data.exceptions.ServerUnreachableException
 import com.olmi.android.memes.ui.helper.TextChangedHelper
+import com.olmi.android.memes.ui.main.MainScreenActivity
 import com.olmi.android.memes.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -91,6 +93,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
             is HttpCallFailureException -> showSnackbar(resources.getString(R.string.http_call_error))
             else -> showSnackbar(resources.getString(R.string.login_error))
         }
+    }
+
+    override fun startMainActivity() {
+        startActivity(Intent(this, MainScreenActivity::class.java))
     }
 
     private fun initFieldsListeners() {
